@@ -6,6 +6,7 @@ $(document).ready(function() {
   console.log($ww);
   console.log($("#about_us").offset(top));
   $("#home").height($wh);
+  $(".home-overlay").height($wh);
   $(".pad-section").height(0.75*$wh);
   $('#nmain').hide();
   $('#e1').hide();
