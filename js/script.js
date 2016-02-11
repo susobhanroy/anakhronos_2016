@@ -6,6 +6,7 @@ $(document).ready(function() {
   console.log($ww);
   console.log($("#about_us").offset(top));
   $("#home").height($wh);
+  $(".home-overlay").height($wh);
   $(".pad-section").height(0.75*$wh);
   $('#nmain').hide();
   $('#e1').hide();
@@ -49,21 +50,22 @@ $(document).ready(function() {
       scrollTop: $($(this).attr("href")).offset().top
     },2000);
   });
-  $(function(){
-    var image=$(document.getElementById('home'));
-    var backgrounds = [
-      "url('./img/sliders/home0.jpg') no-repeat center center fixed",
-      "url('./img/sliders/home2.jpg') no-repeat center center fixed",
-      "url('./img/sliders/home3.jpg') no-repeat center center fixed",
-      "url('./img/sliders/home4.jpg') no-repeat center center fixed"
-    ];
-    var current = 0;
+  var backgrounds = Array('./img/sliders/home0.jpg', './img/sliders/home2.jpg', './img/sliders/home3.jpg', './img/sliders/home4.jpg');
+  var current = 0;
+  var home=$(document.getElementById('home'));  
+
+  $(window).ready(function(){
     function nextBackground(){
-      image.fadeOut(2000);
-      image.css("background",backgrounds[current = ++current % backgrounds.length]);
-      image.fadeIn(2000);
-      setTimeout(nextBackground, 5000);
+      home.animate({opacity: 1}, 1000, function(){
+        home.animate({opacity: 0}, 1000, function(){
+          var url = "url("+backgrounds[current = ++current % backgrounds.length]+")";
+          home.css("background-image", url);
+          home.animate({opacity:1}, 1000, function(){
+            setTimeout(nextBackground, 3000);
+          })
+        })
+      })
     }
-    setTimeout(nextBackground, 5000);
+    nextBackground();
   });
 });
